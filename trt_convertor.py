@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
-Created on Wed Jun  3 11:21:59 2020
+Created on 2020.06.11
 
-@author: Administrator
+@author: LWS
 """
 import tensorrt as trt
 

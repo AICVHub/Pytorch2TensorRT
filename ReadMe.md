@@ -12,7 +12,7 @@ Pytorch1.2
 PIL6.2.1
 numpy1.17.4
 
-Ubuntu16.04
+Linux_x86_64
 CUDA10.0
 CUDNN7.5.0
 ```
