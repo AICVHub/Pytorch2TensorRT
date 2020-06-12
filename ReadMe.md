@@ -45,3 +45,13 @@ Pytorch模型转ONNX：
 2. 并写一个校准器类，该类需继承trt.IInt8EntropyCalibrator2父类，并重写get_batch_size,  get_batch, read_calibration_cache, write_calibration_cache这几个方法。具体做法参考脚本`myCalibrator.py`.
 3. 使用时，需额外指定cache_file，该参数是校准集cache文件的路径，会在校准过程中生成，方便下一次校准时快速提取。
 
+## TODO：
+
+推理脚本。
+
+## 参考：
+
+https://github.com/GuanLianzheng/pytorch_to_TensorRT5.git
+
+官方示例：path_to_tensorrt/TensorRT-5.1.5.0/samples/python/int8_caffe_mnist
+
