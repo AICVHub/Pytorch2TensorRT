@@ -27,11 +27,14 @@ CUDNN7.5.0
 
 1. 从Pytorch模型到ONNX：修改并使用`pytoch_to_onnx.py`脚本转ONNX，或者独自进行转换；
 2. 利用自行提供的或根据上一步转换好的ONNX文件，进行TensorRT转换：`Python main.py`，并指定必要的参数;
+3. 使用`do_inference.py`进行推理验证。
 
 ## 使用示例：
 
 ONNX file to FP16 engine:
 `python main.py --batch_size 32 --mode fp16 --onnx_file_path my_files/centernet.onnx --engine_file_path my_files/test_fp16.engine`
+
+推理：`python do_inference.py --engine_file_path my_files/test.engine--img_path test_img.jpg--batch_size 1`
 
 ## 使用说明：
 
@@ -45,9 +48,7 @@ Pytorch模型转ONNX：
 2. 并写一个校准器类，该类需继承trt.IInt8EntropyCalibrator2父类，并重写get_batch_size,  get_batch, read_calibration_cache, write_calibration_cache这几个方法。具体做法参考脚本`myCalibrator.py`.
 3. 使用时，需额外指定cache_file，该参数是校准集cache文件的路径，会在校准过程中生成，方便下一次校准时快速提取。
 
-## TODO：
 
-推理脚本。
 
 ## 参考：
 
