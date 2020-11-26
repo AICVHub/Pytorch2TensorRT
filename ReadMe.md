@@ -34,7 +34,7 @@ CUDNN7.5.0
 ONNX file to FP16 engine:
 `python main.py --batch_size 32 --mode fp16 --onnx_file_path my_files/centernet.onnx --engine_file_path my_files/test_fp16.engine`
 
-推理：`python do_inference.py --engine_file_path my_files/test.engine--img_path test_img.jpg--batch_size 1`
+推理：`python do_inference.py --engine_file_path my_files/test.engine --img_path test_img.jpg --batch_size 1`
 
 ## 使用说明：
 
