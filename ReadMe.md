@@ -4,10 +4,16 @@
 >
 > 当前仅针对ONNX和TensorRT支持OP可进行转换，如有不支持的OP需编写插件。
 
+# News:
+
+* 2020.12.10: 更新`trt_convertor.py`脚本，使之适用于TRT7；
+
+
+
 ## 软件环境：
 
 ```
-TensorRT5.1.5.0
+TensorRT7.0.0.11
 Pytorch1.2
 PIL6.2.1
 numpy1.17.4
