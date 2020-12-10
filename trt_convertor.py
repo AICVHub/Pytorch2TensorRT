@@ -1,9 +1,5 @@
-﻿# -*- coding: utf-8 -*-
-"""
-Created on 2020.06.11
+# -*- coding: utf-8 -*-
 
-@author: LWS
-"""
 import tensorrt as trt
 
 def ONNX2TRT(args, calib=None):
@@ -14,7 +10,9 @@ def ONNX2TRT(args, calib=None):
     assert args.mode.lower() in ['fp32', 'fp16', 'int8'], "mode should be in ['fp32', 'fp16', 'int8']"
 
     G_LOGGER = trt.Logger(trt.Logger.WARNING)
-    with trt.Builder(G_LOGGER) as builder, builder.create_network() as network, \
+    # TRT7中的onnx解析器的network，需要指定EXPLICIT_BATCH
+    EXPLICIT_BATCH = 1 << (int)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)
+    with trt.Builder(G_LOGGER) as builder, builder.create_network(EXPLICIT_BATCH) as network, \
             trt.OnnxParser(network, G_LOGGER) as parser:
 
         builder.max_batch_size = args.batch_size
@@ -30,7 +28,11 @@ def ONNX2TRT(args, calib=None):
         print('Loading ONNX file from path {}...'.format(args.onnx_file_path))
         with open(args.onnx_file_path, 'rb') as model:
             print('Beginning ONNX file parsing')
-            parser.parse(model.read())
+            if not parser.parse(model.read()):
+                for e in range(parser.num_errors):
+                    print(parser.get_error(e))
+                raise TypeError("Parser parse failed.")
+
         print('Completed parsing of ONNX file')
 
         print('Building an engine from file {}; this may take a while...'.format(args.onnx_file_path))
