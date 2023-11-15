@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+.idea/
+.vscode/
+
+my_files/
+
+*.cache
