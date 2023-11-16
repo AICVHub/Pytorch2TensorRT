@@ -12,14 +12,26 @@ def ONNX2TRT(args, calib=None):
 
     G_LOGGER = trt.Logger(trt.Logger.WARNING)
     # TRT>=7.0中onnx解析器的network，需要指定EXPLICIT_BATCH
-    EXPLICIT_BATCH = 1 << (int)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)
+    EXPLICIT_BATCH = 1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)
     with trt.Builder(G_LOGGER) as builder, \
             builder.create_network(EXPLICIT_BATCH) as network, \
             trt.OnnxParser(network, G_LOGGER) as parser:
 
         builder.max_batch_size = args.batch_size
+
         config = builder.create_builder_config()
         config.max_workspace_size = 1 << 30
+
+        # TODO: not ok yet.
+        if args.dynamic:
+            profile = builder.create_optimization_profile()
+            profile.set_shape("images",
+                              (1, args.channel, args.height, args.width),
+                              (2, args.channel, args.height, args.width),
+                              (4, args.channel, args.height, args.width)
+                              )
+            config.add_optimization_profile(profile)
+
         # builder.max_workspace_size = 1 << 30
         if args.mode.lower() == 'int8':
             assert (builder.platform_has_fast_int8 == True), "not support int8"

@@ -4,6 +4,7 @@ from trt_convertor import ONNX2TRT
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pytorch2TensorRT")
+    # parser.add_argument("--dynamic", action='store_true', help='batch_size')  # not ok yet.
     parser.add_argument("--batch_size", type=int, default=1, help='batch_size')
     parser.add_argument("--channel", type=int, default=3, help='input channel')
     parser.add_argument("--height", type=int, default=384, help='input height')
