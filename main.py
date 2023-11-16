@@ -12,7 +12,7 @@ if __name__ == "__main__":
     parser.add_argument("--mode", type=str, default='int8', help='fp32, fp16 or int8')
     parser.add_argument("--onnx_file_path", type=str, default='model.onnx', help='onnx_file_path')
     parser.add_argument("--engine_file_path", type=str, default='model.engine', help='engine_file_path')
-    parser.add_argument("--imgs_dir", type=str, default='path_to_images/*',
+    parser.add_argument("--imgs_dir", type=str, default='path_to_images_dir',
                         help='calibrator images dir')
     args = parser.parse_args()
     print(args)

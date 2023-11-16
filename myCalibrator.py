@@ -32,7 +32,7 @@ class MyEntropyCalibrator(trt.IInt8EntropyCalibrator2):
 
         self.batch_size, self.Channel, self.Height, self.Width = tensor_shape
 
-        self.imgs = glob.glob(imgs_dir)
+        self.imgs = glob.glob(os.path.join(imgs_dir, "*"))
         np.random.shuffle(self.imgs)
 
         self.batch_idx = 0
