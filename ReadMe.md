@@ -36,6 +36,9 @@ nvidia-cudnn-cu11        8.9.2.26
 ONNX file to FP16 engine:
 `python main.py --batch_size 32 --mode fp16 --onnx_file_path my_files/centernet.onnx --engine_file_path my_files/test_fp16.engine`
 
+ONNX file to INT8 engine:
+`python main.py --mode int8 --onnx_file_path my_files/yolov8n.onnx --engine_file_path my_files/yolov8n_int8.engine --imgs_dir imgs_dataset`
+
 ## 使用说明：
 
 Pytorch模型转ONNX：
@@ -45,9 +48,7 @@ Pytorch模型转ONNX：
 将ONNX转换为INT8的TensorRT引擎，需要:
 
 1. 准备一个校准集，用于在转换过程中寻找使得转换后的激活值分布与原来的FP32类型的激活值分布差异最小的阈值;
-2. 并写一个校准器类，该类需继承trt.IInt8EntropyCalibrator2父类，并重写get_batch_size,  get_batch, read_calibration_cache, write_calibration_cache这几个方法。具体做法参考脚本`myCalibrator.py`.
-3. 使用时，需额外指定cache_file，该参数是校准集cache文件的路径，会在校准过程中生成，方便下一次校准时快速提取。
-
+2. 并写一个校准器类，该类需继承trt.IInt8EntropyCalibrator2父类，并重写get_batch_size,  get_batch, read_calibration_cache, write_calibration_cache这几个方法。可直接使用`myCalibrator.py`，需传入图片文件夹地址；
 
 
 ## 参考：
